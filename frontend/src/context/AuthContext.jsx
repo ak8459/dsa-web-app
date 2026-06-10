@@ -20,6 +20,7 @@ export const AuthProvider = ({ children }) => {
       dispatch({ type: 'LOGOUT' });
       return;
     }
+    // testing routes
     api.get('/auth/me')
       .then(r => {
         dispatch({ type: 'LOGIN', payload: r.data.user || r.data });

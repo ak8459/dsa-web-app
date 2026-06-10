@@ -30,6 +30,7 @@ export const login = async (email, password) => {
   return data;
 };
 
+// testing route
 export const getMe = async (token) => {
   const res = await fetch(`${BASE_URL}/auth/me`, {
     method: 'GET',

@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import User from '../models/User.js';
 
+// controller function to get progress
 export const getProgress = async (req, res, next) => {
   try {
     const user = await User.findById(req.user.id);
@@ -16,6 +17,7 @@ export const getProgress = async (req, res, next) => {
   }
 };
 
+// controller function to get completed 
 export const markCompleted = async (req, res, next) => {
   try {
     const { problemId } = req.params;
@@ -46,6 +48,7 @@ export const markCompleted = async (req, res, next) => {
   }
 };
 
+// get unmarkedCompleted
 export const unmarkCompleted = async (req, res, next) => {
   try {
     const { problemId } = req.params;

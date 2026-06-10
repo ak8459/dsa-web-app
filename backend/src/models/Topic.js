@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 
+// problem schema
 const problemSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -23,8 +24,9 @@ const problemSchema = new mongoose.Schema({
     type: String,
     trim: true
   }
-}); // Keep default _id: true for problems to have individual object ids
+});
 
+// topic Schema
 const topicSchema = new mongoose.Schema({
   title: {
     type: String,

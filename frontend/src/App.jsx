@@ -50,44 +50,44 @@ const PublicRoute = ({ children }) => {
 function AppContent() {
   return (
     <Routes>
-      <Route 
-        path="/" 
+      <Route
+        path="/"
         element={
           <ProtectedRoute>
             <ProgressProvider>
               <Home />
             </ProgressProvider>
           </ProtectedRoute>
-        } 
+        }
       />
-      
-      <Route 
-        path="/topics/:id" 
+
+      <Route
+        path="/topics/:id"
         element={
           <ProtectedRoute>
             <ProgressProvider>
               <TopicDetails />
             </ProgressProvider>
           </ProtectedRoute>
-        } 
+        }
       />
 
-      <Route 
-        path="/login" 
+      <Route
+        path="/login"
         element={
           <PublicRoute>
             <LoginPage />
           </PublicRoute>
-        } 
+        }
       />
-      
-      <Route 
-        path="/register" 
+
+      <Route
+        path="/register"
         element={
           <PublicRoute>
             <RegisterPage />
           </PublicRoute>
-        } 
+        }
       />
 
       <Route path="*" element={<Navigate to="/" replace />} />

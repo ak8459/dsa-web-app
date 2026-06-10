@@ -20,9 +20,11 @@ app.use('/api/auth', authRoutes);
 app.use('/api/topics', topicRoutes);
 app.use('/api/progress', progressRoutes);
 
-app.get('/health', (req, res) => {
-  res.json({ status: 'healthy', timestamp: new Date() });
-});
+
+// route to test api
+// app.get('/health', (req, res) => {
+//   res.json({ status: 'healthy', timestamp: new Date() });
+// });
 
 app.use(errorHandler);
 
@@ -36,6 +38,7 @@ const connectDB = async () => {
     });
   } catch (error) {
     console.error(`Database connection error: ${error.message}`);
+    // exit the code if error comes
     process.exit(1);
   }
 };

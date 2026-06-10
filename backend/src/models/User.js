@@ -11,6 +11,7 @@ const progressSchema = new mongoose.Schema({
   }
 }, { _id: false });
 
+// user schema
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
