@@ -5,9 +5,9 @@ const AuthContext = createContext(null);
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'LOGIN':  return { ...state, user: action.payload, loading: false };
+    case 'LOGIN': return { ...state, user: action.payload, loading: false };
     case 'LOGOUT': return { user: null, loading: false };
-    default:       return state;
+    default: return state;
   }
 };
 
@@ -16,13 +16,12 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    if (!token) { 
-      dispatch({ type: 'LOGOUT' }); 
-      return; 
+    if (!token) {
+      dispatch({ type: 'LOGOUT' });
+      return;
     }
     api.get('/auth/me')
       .then(r => {
-        // Fix: backend returns { user: {...} }, so extract r.data.user
         dispatch({ type: 'LOGIN', payload: r.data.user || r.data });
       })
       .catch(() => dispatch({ type: 'LOGOUT' }));

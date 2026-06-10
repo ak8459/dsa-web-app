@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext.jsx';
 import { useProgress } from '../context/ProgressContext.jsx';
 import api from '../api/axios.js';
 
-export default function TopicDetailPage() {
+export default function TopicDetails() {
   const { id } = useParams();
   const { user, logout } = useAuth();
   const { completed, toggle } = useProgress();
@@ -92,13 +92,10 @@ export default function TopicDetailPage() {
   const easyPercentage = easyTotal > 0 ? Math.round((easySolved / easyTotal) * 100) : 0;
   const mediumPercentage = mediumTotal > 0 ? Math.round((mediumSolved / mediumTotal) * 100) : 0;
   const toughPercentage = toughTotal > 0 ? Math.round((toughSolved / toughTotal) * 100) : 0;
-  
-  // Topic-level status check
   const isTopicDone = totalCount > 0 && doneCount === totalCount;
 
   return (
     <div className="flex flex-col min-h-screen w-full pb-10 bg-bg-main text-text-primary">
-      {/* Navigation Header */}
       <nav className="flex justify-between items-center px-8 py-4 bg-bg-card border-b border-border-color">
         <Link to="/" className="flex items-center gap-2.5 no-underline">
           <BookCheck className="text-brand-primary w-7 h-7" />
@@ -113,10 +110,7 @@ export default function TopicDetailPage() {
         </div>
       </nav>
 
-      {/* Main Workspace */}
       <main className="w-full max-w-[1200px] mx-auto px-5 py-6 flex flex-col gap-6 animate-fadeIn">
-        
-        {/* Back Link */}
         <div className="flex">
           <Link to="/" className="inline-flex items-center gap-2 px-4 py-2 bg-transparent border border-border-color text-text-secondary hover:border-border-hover hover:text-text-primary rounded-lg font-medium text-sm transition no-underline">
             <ArrowLeft className="w-3.5 h-3.5" />
@@ -124,7 +118,6 @@ export default function TopicDetailPage() {
           </Link>
         </div>
 
-        {/* Stats card for the active Topic */}
         <section className="bg-bg-card border border-border-color rounded-xl p-6 flex flex-col gap-5">
           <div className="flex justify-between items-start">
             <div>
@@ -132,7 +125,6 @@ export default function TopicDetailPage() {
                 <h1 className="text-2xl font-bold text-text-primary">
                   {topic.title}
                 </h1>
-                {/* Topic Level Status Indicator Badge */}
                 <span 
                   className={`text-xs font-bold px-2.5 py-0.5 rounded border uppercase tracking-wider ${
                     isTopicDone 
@@ -160,7 +152,6 @@ export default function TopicDetailPage() {
           </div>
 
           <div className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-4 mt-1">
-            {/* Easy Progress */}
             <div className="flex flex-col gap-1.5">
               <div className="flex justify-between text-xs font-semibold">
                 <span className="text-success flex items-center gap-1.5">
@@ -179,7 +170,6 @@ export default function TopicDetailPage() {
               </div>
             </div>
 
-            {/* Medium Progress */}
             <div className="flex flex-col gap-1.5">
               <div className="flex justify-between text-xs font-semibold">
                 <span className="text-warning flex items-center gap-1.5">
@@ -198,7 +188,6 @@ export default function TopicDetailPage() {
               </div>
             </div>
 
-            {/* Hard Progress */}
             <div className="flex flex-col gap-1.5">
               <div className="flex justify-between text-xs font-semibold">
                 <span className="text-danger flex items-center gap-1.5">
@@ -219,7 +208,6 @@ export default function TopicDetailPage() {
           </div>
         </section>
 
-        {/* Problems list */}
         <section className="bg-bg-card border border-border-color rounded-xl overflow-hidden">
           <div className="bg-bg-main/30">
             {topic.problems.map((prob) => {
@@ -240,7 +228,6 @@ export default function TopicDetailPage() {
                   </div>
 
                   <div className="flex items-center gap-5 max-[480px]:w-full max-[480px]:justify-between max-[480px]:pl-[34px]">
-                    {/* Difficulty Badge */}
                     <span className={`text-[10px] font-bold px-2 py-0.5 rounded border uppercase tracking-wider ${
                       prob.difficulty === 'Easy' 
                         ? 'bg-success/15 text-success border-success/30' 
@@ -251,7 +238,6 @@ export default function TopicDetailPage() {
                       {prob.difficulty === 'Tough' ? 'Hard' : prob.difficulty}
                     </span>
 
-                    {/* Subtopic Status badge */}
                     <span 
                       className={`text-[10px] font-bold px-2.5 py-0.5 rounded border uppercase tracking-wider w-[70px] text-center ${
                         isSolved 
@@ -262,7 +248,6 @@ export default function TopicDetailPage() {
                       {isSolved ? 'Done' : 'Pending'}
                     </span>
 
-                    {/* Links */}
                     <div className="flex gap-2">
                       {prob.leetcodeUrl && (
                         <a

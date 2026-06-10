@@ -7,7 +7,6 @@ export const getProgress = async (req, res, next) => {
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
-    // Return array of objects with problemId
     const formattedProgress = user.progress.map(item => ({
       problemId: item.problemId
     }));
@@ -30,7 +29,6 @@ export const markCompleted = async (req, res, next) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    // Check if already marked completed
     const alreadyCompleted = user.progress.some(
       item => item.problemId.toString() === problemId
     );

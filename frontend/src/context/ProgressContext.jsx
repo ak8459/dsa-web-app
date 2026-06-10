@@ -22,7 +22,7 @@ export const ProgressProvider = ({ children }) => {
 
   const toggle = async (problemId) => {
     const isDone = completed.has(problemId);
-    // Optimistic update
+    
     setCompleted(prev => {
       const next = new Set(prev);
       if (isDone) {
@@ -41,7 +41,7 @@ export const ProgressProvider = ({ children }) => {
       }
     } catch (err) {
       console.error('Failed to sync progress with server, rolling back:', err.message);
-      // Rollback on failure
+      
       setCompleted(prev => {
         const next = new Set(prev);
         if (isDone) {

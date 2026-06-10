@@ -16,7 +16,7 @@ import { useAuth } from '../context/AuthContext.jsx';
 import { useProgress } from '../context/ProgressContext.jsx';
 import api from '../api/axios.js';
 
-export default function DashboardPage() {
+export default function Home() {
   const { user, logout } = useAuth();
   const { completed, toggle } = useProgress();
   const [topics, setTopics] = useState([]);
@@ -49,7 +49,6 @@ export default function DashboardPage() {
     }));
   };
 
-  // Stats calculation
   let totalProblemsCount = 0;
   let easyTotal = 0;
   let easySolved = 0;
@@ -95,7 +94,6 @@ export default function DashboardPage() {
 
   return (
     <div className="flex flex-col min-h-screen w-full pb-10 bg-bg-main text-text-primary">
-      {/* Navbar Header */}
       <nav className="flex justify-between items-center px-8 py-4 bg-bg-card border-b border-border-color">
         <div className="flex items-center gap-2.5">
           <BookCheck className="text-brand-primary w-7 h-7" />
@@ -117,7 +115,6 @@ export default function DashboardPage() {
           </div>
         )}
 
-        {/* Dynamic Overall Stats Board */}
         <section className="bg-bg-card border border-border-color rounded-xl p-6 flex flex-col gap-5">
           <div className="flex justify-between items-center">
             <h2 className="text-lg font-semibold flex items-center gap-2">
@@ -137,7 +134,6 @@ export default function DashboardPage() {
           </div>
 
           <div className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-4 mt-1">
-            {/* Easy Progress */}
             <div className="flex flex-col gap-1.5">
               <div className="flex justify-between text-xs font-semibold">
                 <span className="text-success flex items-center gap-1.5">
@@ -156,7 +152,6 @@ export default function DashboardPage() {
               </div>
             </div>
 
-            {/* Medium Progress */}
             <div className="flex flex-col gap-1.5">
               <div className="flex justify-between text-xs font-semibold">
                 <span className="text-warning flex items-center gap-1.5">
@@ -175,7 +170,6 @@ export default function DashboardPage() {
               </div>
             </div>
 
-            {/* Hard Progress */}
             <div className="flex flex-col gap-1.5">
               <div className="flex justify-between text-xs font-semibold">
                 <span className="text-danger flex items-center gap-1.5">
@@ -223,7 +217,6 @@ export default function DashboardPage() {
           </div>
         </section>
 
-        {/* Topics List Tree */}
         <section className="mt-2">
           <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
             <Layers className="text-brand-primary w-5 h-5" />
@@ -234,13 +227,10 @@ export default function DashboardPage() {
             const topicProblemsCount = topic.problems.length;
             const topicCompletedCount = topic.problems.filter(p => completed.has(p._id)).length;
             const isExpanded = !!expandedTopics[topic._id];
-            
-            // Topic completion check for badge status
             const isTopicDone = topicProblemsCount > 0 && topicCompletedCount === topicProblemsCount;
 
             return (
               <div key={topic._id} className="bg-bg-card border border-border-color rounded-xl overflow-hidden mb-4 transition">
-                {/* Topic Header Accordion Trigger */}
                 <div 
                   className="flex justify-between items-center p-4 bg-bg-card/40 hover:bg-bg-card/80 transition cursor-pointer select-none"
                   onClick={() => toggleTopicExpand(topic._id)}
@@ -248,7 +238,6 @@ export default function DashboardPage() {
                   <div className="flex items-center gap-3">
                     <BookOpen className="w-4.5 h-4.5 text-brand-primary" />
                     <span className="text-base font-semibold">{topic.title}</span>
-                    {/* Topic Level Status Indicator Badge */}
                     <span 
                       className={`text-[10px] font-bold px-2 py-0.5 rounded border uppercase tracking-wider ${
                         isTopicDone 
@@ -263,15 +252,13 @@ export default function DashboardPage() {
                     <span className="text-xs font-semibold text-text-secondary bg-bg-input px-2.5 py-1 rounded-full">
                       {topicCompletedCount} / {topicProblemsCount} Solved
                     </span>
-                    {/* Link to focus/details page */}
                     <Link 
                       to={`/topics/${topic._id}`} 
                       className="inline-flex items-center justify-center w-7 h-7 rounded bg-bg-input border border-border-color text-text-secondary hover:text-text-primary hover:border-border-hover transition no-underline"
-                      title="Focus View / Detail Page"
+                      title="Topic Details"
                     >
                       <ExternalLink className="w-3.5 h-3.5" />
                     </Link>
-                    {/* Chevron expand trigger */}
                     <button 
                       onClick={() => toggleTopicExpand(topic._id)}
                       className="bg-transparent border-none cursor-pointer flex items-center p-1"
@@ -285,7 +272,6 @@ export default function DashboardPage() {
                   </div>
                 </div>
 
-                {/* Problems list inside accordion */}
                 {isExpanded && (
                   <div className="border-t border-border-color bg-bg-main/30">
                     {topic.problems.length === 0 ? (
@@ -311,7 +297,6 @@ export default function DashboardPage() {
                             </div>
 
                             <div className="flex items-center gap-5 max-[480px]:w-full max-[480px]:justify-between max-[480px]:pl-[34px]">
-                              {/* Difficulty Badge */}
                               <span className={`text-[10px] font-bold px-2 py-0.5 rounded border uppercase tracking-wider ${
                                 prob.difficulty === 'Easy' 
                                   ? 'bg-success/15 text-success border-success/30' 
@@ -322,7 +307,6 @@ export default function DashboardPage() {
                                 {prob.difficulty === 'Tough' ? 'Hard' : prob.difficulty}
                               </span>
 
-                              {/* Problem Level Status Indicator */}
                               <span 
                                 className={`text-[10px] font-bold px-2.5 py-0.5 rounded border uppercase tracking-wider w-[70px] text-center ${
                                   isSolved 
@@ -333,7 +317,6 @@ export default function DashboardPage() {
                                 {isSolved ? 'Done' : 'Pending'}
                               </span>
 
-                              {/* Resource Links */}
                               <div className="flex gap-2">
                                 {prob.leetcodeUrl && (
                                   <a 

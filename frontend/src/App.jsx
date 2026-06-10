@@ -4,10 +4,10 @@ import { AuthProvider, useAuth } from './context/AuthContext.jsx';
 import { ProgressProvider } from './context/ProgressContext.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
-import DashboardPage from './pages/DashboardPage.jsx';
-import TopicDetailPage from './pages/TopicDetailPage.jsx';
+import Home from './pages/Home.jsx';
+import TopicDetails from './pages/TopicDetails.jsx';
 
-// Filter for routes that require an authenticated user session
+// Auth wall
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
 
@@ -27,7 +27,7 @@ const ProtectedRoute = ({ children }) => {
   return children;
 };
 
-// Filter for public-only auth routes (redirects if already logged in)
+// Redirect to home if already logged in
 const PublicRoute = ({ children }) => {
   const { user, loading } = useAuth();
 
@@ -50,13 +50,12 @@ const PublicRoute = ({ children }) => {
 function AppContent() {
   return (
     <Routes>
-      {/* Protected routes wrapped in ProgressProvider to share solved state */}
       <Route 
         path="/" 
         element={
           <ProtectedRoute>
             <ProgressProvider>
-              <DashboardPage />
+              <Home />
             </ProgressProvider>
           </ProtectedRoute>
         } 
@@ -67,13 +66,12 @@ function AppContent() {
         element={
           <ProtectedRoute>
             <ProgressProvider>
-              <TopicDetailPage />
+              <TopicDetails />
             </ProgressProvider>
           </ProtectedRoute>
         } 
       />
 
-      {/* Public auth routes */}
       <Route 
         path="/login" 
         element={
@@ -92,7 +90,6 @@ function AppContent() {
         } 
       />
 
-      {/* Fallback route */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

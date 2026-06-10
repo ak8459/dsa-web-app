@@ -14,7 +14,6 @@ export const getTopics = async (req, res, next) => {
       const topicObj = topic.toObject();
       let allProblemsDone = topicObj.problems.length > 0;
 
-      // Attach status to each individual problem
       topicObj.problems = topicObj.problems.map(prob => {
         const isDone = progressSet.has(prob._id.toString());
         if (!isDone) {
@@ -26,7 +25,6 @@ export const getTopics = async (req, res, next) => {
         };
       });
 
-      // Attach status to the topic overall
       topicObj.status = allProblemsDone ? 'Done' : 'Pending';
       return topicObj;
     });
@@ -52,7 +50,6 @@ export const getTopicById = async (req, res, next) => {
     const topicObj = topic.toObject();
     let allProblemsDone = topicObj.problems.length > 0;
 
-    // Attach status to each individual problem
     topicObj.problems = topicObj.problems.map(prob => {
       const isDone = progressSet.has(prob._id.toString());
       if (!isDone) {
@@ -64,7 +61,6 @@ export const getTopicById = async (req, res, next) => {
       };
     });
 
-    // Attach status to the topic overall
     topicObj.status = allProblemsDone ? 'Done' : 'Pending';
 
     res.json(topicObj);
