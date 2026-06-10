@@ -17,6 +17,7 @@ export default function Home() {
   const [expandedTopics, setExpandedTopics] = useState({});
   const navigate = useNavigate();
 
+  // side effect to get topics
   useEffect(() => {
     api.get('/topics')
       .then(r => {
@@ -29,11 +30,14 @@ export default function Home() {
       });
   }, []);
 
+
+  // handle logout
   const handleLogoutClick = () => {
     logout();
     navigate('/login');
   };
 
+  // toggle topic
   const toggleTopicExpand = (topicId) => {
     setExpandedTopics(prev => ({
       ...prev,
@@ -51,7 +55,7 @@ export default function Home() {
   topics.forEach(topic => {
     topic.problems.forEach(prob => {
       const isDone = completed.has(prob._id);
-      
+
       if (prob.difficulty === 'Easy') {
         easyTotal++;
         if (isDone) easySolved++;

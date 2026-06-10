@@ -12,6 +12,7 @@ export default function RegisterPage() {
   const { register } = useAuth();
   const navigate = useNavigate();
 
+  // submit handler function
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');

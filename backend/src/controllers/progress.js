@@ -5,12 +5,16 @@ import User from '../models/User.js';
 export const getProgress = async (req, res, next) => {
   try {
     const user = await User.findById(req.user.id);
+    // console.log('cehck data', user);
+
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
     const formattedProgress = user.progress.map(item => ({
       problemId: item.problemId
     }));
+    console.log('line 16', formattedProgress);
+
     res.json(formattedProgress);
   } catch (error) {
     next(error);
@@ -21,12 +25,15 @@ export const getProgress = async (req, res, next) => {
 export const markCompleted = async (req, res, next) => {
   try {
     const { problemId } = req.params;
+    // console.log(problemId);
 
     if (!mongoose.Types.ObjectId.isValid(problemId)) {
       return res.status(400).json({ message: 'Invalid problem ID format' });
     }
 
     const user = await User.findById(req.user.id);
+    // console.log('line 35', user);
+
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
@@ -58,6 +65,8 @@ export const unmarkCompleted = async (req, res, next) => {
     }
 
     const user = await User.findById(req.user.id);
+    // console.log('user',user);
+
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }

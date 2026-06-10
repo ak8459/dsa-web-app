@@ -4,15 +4,18 @@ import User from '../models/User.js';
 export const getTopics = async (req, res, next) => {
   try {
     const user = await User.findById(req.user.id);
+    // console.log('check user',user);
+
     const progressSet = new Set(
       user ? user.progress.map(p => p.problemId.toString()) : []
     );
 
     const topics = await Topic.find().sort({ order: 1 });
-    
+
     const topicsWithStatus = topics.map(topic => {
       const topicObj = topic.toObject();
       let allProblemsDone = topicObj.problems.length > 0;
+      // console.log('line 18',topicObj);
 
       topicObj.problems = topicObj.problems.map(prob => {
         const isDone = progressSet.has(prob._id.toString());
@@ -38,6 +41,8 @@ export const getTopics = async (req, res, next) => {
 export const getTopicById = async (req, res, next) => {
   try {
     const user = await User.findById(req.user.id);
+    // console.log('line',user);
+
     const progressSet = new Set(
       user ? user.progress.map(p => p.problemId.toString()) : []
     );

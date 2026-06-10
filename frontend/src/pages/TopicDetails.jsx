@@ -12,7 +12,7 @@ export default function TopicDetails() {
   const { id } = useParams();
   const { user, logout } = useAuth();
   const { completed, toggle } = useProgress();
-  
+
   const [topic, setTopic] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -90,12 +90,11 @@ export default function TopicDetails() {
   const titleNode = (
     <div className="flex items-center gap-3">
       <span className="text-2xl font-bold text-text-primary">{topic.title}</span>
-      <span 
-        className={`text-xs font-bold px-2.5 py-0.5 rounded border uppercase tracking-wider ${
-          isTopicDone 
-            ? 'bg-success/15 text-success border-success/30' 
+      <span
+        className={`text-xs font-bold px-2.5 py-0.5 rounded border uppercase tracking-wider ${isTopicDone
+            ? 'bg-success/15 text-success border-success/30'
             : 'bg-danger/15 text-danger border-danger/30'
-        }`}
+          }`}
       >
         {isTopicDone ? 'Done' : 'Pending'}
       </span>

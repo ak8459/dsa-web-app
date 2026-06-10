@@ -58,12 +58,15 @@ export const register = async (req, res, next) => {
 export const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
+    // console.log(req.body);
 
     if (!email || !password) {
       return res.status(400).json({ message: 'Please enter all required fields' });
     }
 
     const user = await User.findOne({ email });
+    // console.log('user',user);
+
     if (!user) {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
@@ -94,9 +97,12 @@ export const login = async (req, res, next) => {
   }
 };
 
+// testing route
 export const me = async (req, res, next) => {
   try {
     const user = await User.findById(req.user.id).select('-passwordHash');
+    // console.log(user);
+
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }

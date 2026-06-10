@@ -28,6 +28,7 @@ app.use('/api/progress', progressRoutes);
 
 app.use(errorHandler);
 
+// db connection
 const connectDB = async () => {
   try {
     const conn = await mongoose.connect(process.env.MONGODB_URI);
